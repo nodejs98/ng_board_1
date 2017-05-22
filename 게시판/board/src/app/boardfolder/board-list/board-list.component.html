@@ -1,0 +1,53 @@
+<div class="container">
+  <div style="background-color: rgba(0, 0, 0, 0.1);">
+    <div class="row">
+      <div class="col-md-8">
+
+        <div class="row">
+          <div class="col-md-2">
+            xs-1
+          </div>
+          <div class="col-md-10">
+            Level 2: .col-xs-11s
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+
+        <div class="row">
+          <div class="col-md-3">
+            글쓴이
+          </div>
+          <div class="col-md-3">
+            날짜
+          </div>
+          <div class="col-md-3">
+            조회
+          </div>
+          <div class="col-md-3">
+            추천
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-board-item *ngFor="let boardDataEl of boardDatas; let i = index" [boardData]="boardDataEl" [index]="i"> </app-board-item>
+
+  <a class="btn btn-default pull-right">
+글쓰기
+  </a>
+  <div class="text-center">
+    <ul class="pagination">
+      <li>
+        <a href="#">
+          <</a>
+      </li>
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">></a></li>
+    </ul>
+  </div>
+</div>
