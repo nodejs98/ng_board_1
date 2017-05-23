@@ -1,0 +1,16 @@
+ 
+<quill-editor [modules]="{ counter: { container: '#counter', unit: 'word' } }">
+  <div quill-editor-toolbar>
+    <span class="ql-formats">
+      <button class="ql-bold" [title]="'Bold'"></button>
+    </span>
+ 
+    <span class="ql-formats">
+      <div id="counter"></div>
+    </span>
+        <span class="ql-formats">
+      <button class="ql-image"></button>
+      
+    </span>
+  </div>
+</quill-editor>

@@ -1,7 +1,7 @@
 import { BoardServiceService } from './boardfolder/board-service.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -12,7 +12,8 @@ import { BoardWriteComponent } from './boardfolder/board-write/board-write.compo
 import { BoardReadComponent } from './boardfolder/board-read/board-read.component';
 import { CommentListComponent } from './boardfolder/comment-list/comment-list.component';
 import { CommentItemComponent } from './boardfolder/comment-list/comment-item/comment-item.component';
-
+import { QuillModule } from 'ngx-quill';
+import { BoardEditorComponent } from './boardfolder/board-editor/board-editor.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +23,16 @@ import { CommentItemComponent } from './boardfolder/comment-list/comment-item/co
     BoardWriteComponent,
     BoardReadComponent,
     CommentListComponent,
-    CommentItemComponent
+    CommentItemComponent,
+    BoardEditorComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ReactiveFormsModule,
+
+    QuillModule
   ],
   providers: [BoardServiceService],
   bootstrap: [AppComponent]
