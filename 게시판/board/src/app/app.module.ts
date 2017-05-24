@@ -24,7 +24,7 @@ import { BoardEditorComponent } from './boardfolder/board-editor/board-editor.co
     BoardReadComponent,
     CommentListComponent,
     CommentItemComponent,
-    BoardEditorComponent
+    BoardEditorComponent,
   ],
   imports: [
     BrowserModule,

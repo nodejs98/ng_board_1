@@ -1,7 +1,8 @@
-import {  OnInit } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Component, ElementRef, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { Http } from "@angular/http";
 
 import { QuillEditorComponent } from 'ngx-quill/src/quill-editor.component';
 
@@ -27,19 +28,23 @@ Quill.register('modules/counter', Counter)
   styleUrls: ['./board-editor.component.css']
 })
 export class BoardEditorComponent implements OnInit {
- 
- title = 'Quill works!';
+
+  title = 'Quill works!';
   isReadOnly = false;
   form: FormGroup;
 
-  constructor(fb: FormBuilder,private elementRef: ElementRef) {
+  constructor(fb: FormBuilder, private elementRef: ElementRef, private http: Http) {
     this.form = fb.group({
       editor: ['test']
     });
+
+    // quilleditor.quillEditor.getModule("toolbar").addHandler("image",this.testimage);
   }
+
   @ViewChild('editor') editor: QuillEditorComponent
 
   ngOnInit() {
+    console.log(this.form)
     this.form
       .controls
       .editor
@@ -47,12 +52,15 @@ export class BoardEditorComponent implements OnInit {
       .debounceTime(400)
       .distinctUntilChanged()
       .subscribe(data => {
-        console.log('native fromControl value changes with debounce', data)
+        console.log('value changes')
       });
-      
- 
+
+    // console.log(this.form.controls.editor.getModule("toolbar").addHandler("image",this.testimage));
+
+
   }
- 
+
+
   patchValue() {
     this.form.controls['editor'].patchValue(`${this.form.controls['editor'].value} patched!`)
   }
@@ -68,4 +76,35 @@ export class BoardEditorComponent implements OnInit {
   logSelection($event: any) {
     console.log($event);
   }
+  upload() {
+    var IMGUR_CLIENT_ID = 'bcab3ce060640ba';
+    var IMGUR_API_URL = 'https://api.imgur.com/3/image';
+    let inputEl = this.elementRef.nativeElement.lastChild;
+    if (inputEl.files.length == 0) return;
+
+    let files: FileList = inputEl.files;
+    const formData = new FormData();
+    for (var i = 0; i < files.length; i++) {
+      formData.append('image', files[i]);
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', IMGUR_API_URL, true);
+    xhr.setRequestHeader('Authorization', 'Client-ID ' + IMGUR_CLIENT_ID);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        var response = JSON.parse(xhr.responseText);
+        if (response.status === 200 && response.success) {
+          console.log(response.data.link);
+        } else {
+
+        }
+      }
+    }
+    xhr.send(formData);
+  }
+
+  // this.http
+  //     .post('/api/test/fileupload', formData)
+  //     .subscribe();
 }

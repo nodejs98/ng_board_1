@@ -1,16 +1,7 @@
- 
-<quill-editor [modules]="{ counter: { container: '#counter', unit: 'word' } }">
-  <div quill-editor-toolbar>
-    <span class="ql-formats">
-      <button class="ql-bold" [title]="'Bold'"></button>
-    </span>
- 
-    <span class="ql-formats">
-      <div id="counter"></div>
-    </span>
-        <span class="ql-formats">
-      <button class="ql-image"></button>
-      
-    </span>
-  </div>
-</quill-editor>
+<form [formGroup]="form">
+  <!--{{form.controls.editor.value}}-->
+  <button type="button" (click)="patchValue()">patchValue</button>
+  <quill-editor #editor formControlName="editor"></quill-editor>
+</form>
+
+<input type="file" id="testFile" (change)="upload()">
