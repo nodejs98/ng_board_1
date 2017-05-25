@@ -62,7 +62,7 @@ export class BoardEditorComponent implements OnInit {
 
 
   patchValue() {
-    this.form.controls['editor'].patchValue(`${this.form.controls['editor'].value} patched!`)
+    this.form.controls['editor'].patchValue(`${this.form.controls['editor'].value} <img src="http://i.imgur.com/2Def4XP.gif">`)
   }
 
   toggleReadOnly() {
@@ -77,9 +77,10 @@ export class BoardEditorComponent implements OnInit {
     console.log($event);
   }
   upload() {
-    var IMGUR_CLIENT_ID = 'bcab3ce060640ba';
+    var IMGUR_CLIENT_ID = '9f8b678ca9ad9ab';
     var IMGUR_API_URL = 'https://api.imgur.com/3/image';
-    let inputEl = this.elementRef.nativeElement.lastChild;
+    let inputEl = this.elementRef.nativeElement.querySelector("#testFile");
+    console.dir(inputEl);
     if (inputEl.files.length == 0) return;
 
     let files: FileList = inputEl.files;
@@ -95,7 +96,9 @@ export class BoardEditorComponent implements OnInit {
       if (xhr.readyState === 4) {
         var response = JSON.parse(xhr.responseText);
         if (response.status === 200 && response.success) {
-          console.log(response.data.link);
+  
+              document.querySelector("quill-editor div.ql-editor").innerHTML
+               = document.querySelector("quill-editor div.ql-editor").innerHTML+ '<img src="'+response.data.link+'">';
         } else {
 
         }
